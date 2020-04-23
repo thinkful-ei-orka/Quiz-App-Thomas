@@ -1,0 +1,92 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+/* Generics */
+
+label {
+    display: block;
+    padding: 10px 0;
+}
+
+button {
+    margin: 20px auto;
+    padding: 3% 5%;
+    background-color: lightgreen;
+}
+
+
+/* Viewscreen */
+
+.screen {
+    width: 100vw;
+    height: 100vh;
+    color: white;
+    background-color: dimgray;
+}
+
+.main-screen {
+    background-color: grey;
+    width: 90%;
+    height: 90%;
+    padding: 2%; 
+    margin: auto;
+    border-radius: 10px;
+}
+
+.inner-box {
+    width: 100%;
+    height: 20%;
+    margin: 10px auto;
+    text-align: center;
+    background-color: lightgray;
+}
+
+.question::before {
+    content: 'Q';
+    position: absolute;
+    right: 80%;
+    font-size: 5em;
+}
+
+.question {
+    display: block;
+    text-align: left;
+    margin: 40px auto;
+    
+}
+
+
+.input-button {
+    display: block;
+
+}
+
+.answer-box {
+    height: 70%;
+    width: 100%;
+    background-color: slategray;
+}
+
+.answer-button {
+    right: -65%;
+    position: relative;
+    top: 125px;
+}
+
+.answer-eval {
+    position: relative;
+    width: 60%;
+    height: 20%;
+    top: 40%;
+    background-color: darkcyan;
+}
+
+.correct {
+    background-color: darkgreen;
+}
+
+.wrong {
+    background-color: darkred;
+}
