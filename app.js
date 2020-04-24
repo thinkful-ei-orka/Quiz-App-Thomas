@@ -57,6 +57,7 @@ const store = {
       correctAnswer: 'The Community Center'
     }
   ],
+  answer: '',
   quizStarted: false,
   questionNumber: 0,
   score: 0
@@ -85,6 +86,7 @@ function generateQuizQuestion() {
   html = `<section class='js-main-screen'>
             <h2 class='js-question-box'>${store.questions[store.questionNumber].question}</h2>
             <form action='' id='js-answer-form' class='js-answer-box'>`;
+  html += generateQuizCount();
   let i = 1;
   store.questions[store.questionNumber].answers.forEach(quizAnswer => {
     console.log(quizAnswer);
@@ -93,54 +95,65 @@ function generateQuizQuestion() {
     i++;
   })
 
-  html += `<button type ='submit' class='js-answer-button'>Submit</button>
+  html += `<section class='js-answer-eval'></section>
+          <button type ='submit' class='js-answer-button'>Submit</button>
           </form>
           </section>`;
 
   return html;
 };
 
-function generateQuizFeedback(answer) {
-  let html = '';
-  let incorrectFlag = false;
-  let correct = store.questions[store.questionNumber].correctAnswer;
-  console.log(answer);
-  html += `<section class='js-main-screen'>
+//use :checked to make radio box checked
+//use invalid to make radio box unselectable?
+//or disabled?
+
+function generateQuizFeedback() {
+    let html = '';
+    let incorrectFlag = false;
+    let correct = store.questions[store.questionNumber].correctAnswer;
+    html += `<section class='js-main-screen'>
               <h2 class='js-question-box'>${store.questions[store.questionNumber].question}</h2>
               <form action='' id='js-answer-form' class='js-answer-box'>`
-  let i = 1;
-  store.questions[store.questionNumber].answers.forEach(quizAnswer => {
-    html += `<input type="radio" name="answer" id='answer${i} value='${quizAnswer}'>`;
-    if (quizAnswer != correct && quizAnswer === answer) {
-      console.log('incorrect flag hit');
-      incorrectFlag = !incorrectFlag;
-      html += `<label for='answer${i}' class='incorrect'>${quizAnswer}</label>`;
-    } else {
-      if (quizAnswer === correct && correct === answer) {
-        console.log('correct flag hit');
-        html += `<label for='answer${i}' class='correct'>${quizAnswer}</label>`;
-        store.score++;
+    html += generateQuizCount();
+    let i = 1;
+    store.questions[store.questionNumber].answers.forEach(quizAnswer => {
+      html += `<input type="radio" name="answer" id='answer${i} value='${quizAnswer}'>`;
+      if (quizAnswer != correct && quizAnswer === store.answer) {
+        console.log('incorrect flag hit');
+        incorrectFlag = !incorrectFlag;
+        html += `<label for='answer${i}' class='incorrect'>${quizAnswer}</label>`;
       } else {
-        html += `<label for='answer${i}'>${quizAnswer}</label>`;
+        if (quizAnswer === correct) {
+          console.log('correct flag hit');
+          html += `<label for='answer${i}' class='correct'>${quizAnswer}</label>`;
+          if(correct === store.answer) {
+            store.score++;
+          }
+        } else {
+          html += `<label for='answer${i}'>${quizAnswer}</label>`;
+        }
       }
+      i++;
+    })
+
+    if (incorrectFlag) {
+      html += `<section class='js-answer-eval incorrect'></section>`;
+    } else {
+      html += `<section class='js-answer-eval correct'></section>`;
     }
-    i++;
-  })
 
-  if (incorrectFlag) {
-    html += `<section class='js-answer-eval incorrect'></section>`;
-  } else {
-    html += `<section class='js-answer-eval correct'></section>`;
-  }
-
-  html += `<button type ='submit' class='js-continue-button'>Continue</button>
+    html += `<button type ='submit' class='js-continue-button'>Continue</button>
           </form>
           </section>`;
 
-  return html;
+    store.questionNumber++;
+    return html;
 }
 
-
+function generateQuizCount() {
+  // return a html string that is the current question, total questions, and total questions right
+  return `<h3>Question ${(store.questionNumber + 1)}/${store.questions.length}. ${store.score} correct.</h3>`;
+};
 
 function generateTitleScreen() {
   // Generate our initial screen and restart
@@ -168,13 +181,7 @@ function generateEndSceen() {
 
 // This function conditionally replaces the contents of the <main> tag based on the state of the store
 function renderQuizScreen() {
-  //render what we've generated to the screen
-  //if our quiz started flag is false
-  //generate our title screen else
-  //if our question number > questions.length
-  //generate our end screen
-  //else
-  //generate our quiz question
+
   let generateString = '';
   if (!store.quizStarted) {
     generateString = generateTitleScreen();
@@ -183,16 +190,18 @@ function renderQuizScreen() {
     generateString = generateEndSceen();
   }
   else {
-    generateString = generateQuizQuestion();
+    //1. render the question screen
+    //2. render correct
+    //3. render wrong
+    if(store.answer){
+      generateString = generateQuizFeedback();
+    } else {
+      generateString = generateQuizQuestion();
+    }
   }
 
-  render(generateString);
+  $('main').html(generateString);
 }
-
-function render(htmlString) {
-  $('main').html(htmlString);
-}
-
 
 /********** EVENT HANDLER FUNCTIONS **********/
 
@@ -204,46 +213,31 @@ function handleAnswerSubmitted() {
   $('main').on('submit', '#js-answer-form', (event) => {
     event.preventDefault();
     // Retrieve answer identifier of user-checked radio btn
-    const ans = $('input[name="answer"]:checked').val();
-    console.log(ans);
-    if (ans) {
-      let quizFeedback = generateQuizFeedback(ans)
-      render(quizFeedback);
-      store.questionNumber++;
-    }
-    // Update STORE 
-    // questionNumber++?
-    // render appropriate section
-    //
+    store.answer = $('input[name="answer"]:checked').val();
+    renderQuizScreen();
   });
-
 }
 
 function handleStartQuiz() {
   $('main').on('click', '.js-start-button', (event) => {
-    //start our quiz
     event.preventDefault();
     store.quizStarted = !store.quizStarted;
     renderQuizScreen();
-    console.log('Start Button pressed');
   })
 };
 
 function handleNextQuestion() {
   $('main').on('click', '.js-continue-button', (event) => {
+    store.answer = '';
     renderQuizScreen();
   })
 }
 
 function handleEndQuiz() {
   $('main').on('click', '.js-end-button', (event) => {
-    // reset score
     store.score = 0;
-    // reset questionNumber
     store.questionNumber = 0;
-    // reset quizStarted
     store.quizStarted = false;
-    // return to start screen
     renderQuizScreen();
   })
 }
