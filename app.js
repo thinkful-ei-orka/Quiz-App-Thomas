@@ -90,13 +90,15 @@ function generateQuizQuestion() {
   let i = 1;
   store.questions[store.questionNumber].answers.forEach(quizAnswer => {
     console.log(quizAnswer);
-    html += `<input type="radio" name="answer" id='answer${i}' value='${quizAnswer}'>`;
-    html += `<label for='answer${i}'>${quizAnswer}</label>`;
+    html += `<div class='input-container'>
+              <input type="radio" name="answer" id='answer${i}' value='${quizAnswer}'>
+              <label for='answer${i}'>${quizAnswer}</label>
+            </div>`;
     i++;
   })
 
-  html += `<section class='js-answer-eval'></section>
-          <button type ='submit' class='js-answer-button'>Submit</button>
+  html += ` <section class='js-answer-eval'></section>
+            <button type ='submit' class='js-answer-button'>Submit</button>
           </form>
           </section>`;
 
@@ -117,27 +119,28 @@ function generateQuizFeedback() {
     html += generateQuizCount();
     let i = 1;
     store.questions[store.questionNumber].answers.forEach(quizAnswer => {
-      html += `<input type="radio" name="answer" id='answer${i} value='${quizAnswer}'>`;
       if (quizAnswer != correct && quizAnswer === store.answer) {
-        console.log('incorrect flag hit');
         incorrectFlag = !incorrectFlag;
-        html += `<label for='answer${i}' class='incorrect'>${quizAnswer}</label>`;
+        html += `<div class='input-container incorrect'>`;
       } else {
         if (quizAnswer === correct) {
-          console.log('correct flag hit');
-          html += `<label for='answer${i}' class='correct'>${quizAnswer}</label>`;
+          html += `<div class='input-container correct'>`;
           if(correct === store.answer) {
             store.score++;
           }
         } else {
-          html += `<label for='answer${i}'>${quizAnswer}</label>`;
+          html += `<div class='input-container'>`;
         }
       }
+      html += `<input type="radio" name="answer" id='answer${i} value='${quizAnswer}'>`;
+      html += `<label for='answer${i}'>${quizAnswer}</label>`;
+      html += `</div>`;
       i++;
     })
 
     if (incorrectFlag) {
-      html += `<section class='js-answer-eval incorrect'></section>`;
+      html += `<section class='js-answer-eval incorrect'>
+               Incorrect! ${store.questions[store.questionNumber].incorrectDesc}.  Did you know? ${store.questions[store.questionNumber].factoid}</section>`;
     } else {
       html += `<section class='js-answer-eval correct'></section>`;
     }

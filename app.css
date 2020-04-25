@@ -6,3 +6,132 @@
   * https://github.com/andreacardybailey/responsive_example/blob/master/styles/responsive-base.css 
   *
 */
+
+/* Reset all values */
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-image: url("https://wallpaperaccess.com/full/1547801.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
+  font-family: 'Comic Neue', cursive;
+}
+
+/* Flex setup
+*  Setting all values that need flex here as most components require it
+*/
+
+h2, main, div, section, form {
+  display: flex;
+  flex-flow: column nowrap;
+}
+
+/* Title and box styling */
+
+h1 {
+  padding: 30px 0;
+  font-size: 2rem;
+  margin: 2.5rem auto;
+  width: 95%;
+  text-align: center;
+  background-color: lightgray;
+  border-radius: 20px;
+}
+
+main {
+  align-items: center;
+  margin: 0 auto;
+  width: 90%;
+  height: 70vh;
+  background: lightgray;
+}
+
+/* Inner Main elements styling */
+
+/* Inner container to hold all elements */
+.js-main-screen {
+  width: 90%;
+  height: 100%;
+}
+
+.js-answer-form {
+  height: 100%;
+  position: relative;
+}
+
+h2 {
+  margin: 5% auto;
+  width: 100%;
+  height: 80%;
+  padding: 20px;
+  background-color: grey;
+}
+
+h3 {
+  text-align: right;
+}
+
+button {
+  padding: 20px;
+  margin: 10px;
+  height: 50%;
+  align-self: flex-end;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  margin-bottom: 50px;
+  height: 15%;
+}
+
+/* Question box */
+
+.js-question-box {
+  height: fit-content;
+}
+
+.js-answer-eval {
+  display: inline-block;
+  padding: 10px;
+  margin: 20px auto;
+  width: 100%;
+  background-color: grey;
+}
+
+/* input fields, contains radio buttons and labels */
+.input-container {
+  flex-direction: row;
+  width: 100%;
+  padding: 5px;
+  margin: 5px auto;
+  border-radius: 10px;
+}
+
+input {
+  margin: 5px;
+}
+
+/* Start/End Button formatting */
+
+.js-end-button, .js-start-button {
+  height: 20%;
+  padding: 30px;
+  margin: 50px auto;
+  align-self: center;
+}
+
+/* colors for correct/incorrect */
+
+.correct {
+  background-color: rgb(133, 224, 133);
+}
+
+.incorrect {
+  background-color: rgb(228, 135, 135);
+}
