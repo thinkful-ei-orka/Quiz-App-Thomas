@@ -2,7 +2,6 @@
  * Example store structure
  */
 const store = {
-  // 5 or more questions are required
   questions: [
     {
       question: 'Who is the mayor of Pelican Town?',
@@ -14,7 +13,7 @@ const store = {
       ],
       correctAnswer: 'Lewis',
       incorrectDesc: 'The mayor of Pelican Town is Lewis.',
-      factoid: 'insert random fact about lewis here.'
+      factoid: 'Lewis is one of the first to greet you when you move to Stardew Valley!'
     },
     {
       question: 'How long is each season?',
@@ -24,8 +23,10 @@ const store = {
         '3 months',
         '4 months'
       ],
-      correctAnswer: '1 month'
-    },
+      correctAnswer: '1 month',
+      incorrectDesc: 'Each season is one month long.',
+      factoid: `You can check the calender outside of Pierre's store to keep up with each months events!`
+    },    
     {
       question: 'Who do you inherit your farm from?',
       answers: [
@@ -34,17 +35,21 @@ const store = {
         'Gus',
         'Elliot'
       ],
-      correctAnswer: 'Your grandfather'
+      correctAnswer: 'Your grandfather',
+      incorrectDesc: 'You inherit your farm from your grandfather.',
+      factoid: 'You receive it after quitting your job at Joja Corporation!'
     },
     {
-      question: 'Who runs the Saloon?',
+      question: 'Who runs the Stardrop Saloon?',
       answers: [
         'Linus',
         'Emily',
         'Gus',
         'Marnie'
       ],
-      correctAnswer: 'Gus'
+      correctAnswer: 'Gus',
+      incorrectDesc: 'Gus runs the Stardrop Saloon.',
+      factoid: 'Check the arcade for playable games like Junimo Kart!'
     },
     {
       question: 'Where do you give items to the Junimos?',
@@ -54,14 +59,17 @@ const store = {
         'JojaMart',
         'The Beach'
       ],
-      correctAnswer: 'The Community Center'
+      correctAnswer: 'The Community Center',
+      incorrectDesc: 'You give items to the Junimos at The Community Center.',
+      factoid: 'Make sure to complete all bundles to fully restore each room!' 
     }
   ],
-  answer: '',
   quizStarted: false,
   questionNumber: 0,
-  score: 0
+  score: 0,
+  answer: ''
 };
+
 
 /**
  * 
@@ -132,7 +140,7 @@ function generateQuizFeedback() {
           html += `<div class='input-container'>`;
         }
       }
-      html += `<input type="radio" name="answer" id='answer${i} value='${quizAnswer}'>`;
+      html += `<input disabled ${store.answer === quizAnswer ? `checked` : ``} type="radio" name="answer" id='answer${i} value='${quizAnswer}'>`;
       html += `<label for='answer${i}'>${quizAnswer}</label>`;
       html += `</div>`;
       i++;
@@ -140,9 +148,9 @@ function generateQuizFeedback() {
 
     if (incorrectFlag) {
       html += `<section class='js-answer-eval incorrect'>
-               Incorrect! ${store.questions[store.questionNumber].incorrectDesc}.  Did you know? ${store.questions[store.questionNumber].factoid}</section>`;
+               Incorrect! \n${store.questions[store.questionNumber].incorrectDesc}.  \nDid you know? \n${store.questions[store.questionNumber].factoid}</section>`;
     } else {
-      html += `<section class='js-answer-eval correct'></section>`;
+      html += `<section class='js-answer-eval correct'>Correct! \n Did you know? \n${store.questions[store.questionNumber].factoid} </section>`;
     }
 
     html += `<button type ='submit' class='js-continue-button'>Continue</button>
