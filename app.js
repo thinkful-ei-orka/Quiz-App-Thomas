@@ -1,3 +1,22 @@
+/*
+  Check-list for things to do today
+  ------------------------------------
+
+  1. Ensure 320 functionality
+    a. Make sure no elements crossover
+    b. Make sure all elements are still readable
+    c. Make sure all designs do not break
+  2. Design to fit our questions right text
+  3. Redesign results screen
+  4. Recolor our backgrounds and apply opacity where needed
+  5. Refactor codebase to ensure all code is 'clean'
+
+
+  1-ex. Implements images
+  2-ex. Implements stars
+*/
+
+
 /**
  * Example store structure
  */
@@ -140,23 +159,23 @@ function generateQuizFeedback() {
         html += `<div class='input-container'>`;
       }
     }
-    html += `<input disabled ${store.answer === quizAnswer ? `checked` : ``} type="radio" name="answer" id='answer${i} value='${quizAnswer}'>`;
-    html += `<label for='answer${i}'>${quizAnswer}</label>`;
-    html += `</div>`;
+    html += `<input disabled ${store.answer === quizAnswer ? `checked` : ``} type="radio" name="answer" id='answer${i} value='${quizAnswer}'>
+             <label for='answer${i}'>${quizAnswer}</label>
+             </div>`;
     i++;
   })
 
   if (incorrectFlag) {
     html += `<section class='js-answer-eval incorrect'>
-               Incorrect! \n${store.questions[store.questionNumber].incorrectDesc}.  \nDid you know? \n${store.questions[store.questionNumber].factoid}</section>`;
+               <strong>Incorrect!</strong> ${store.questions[store.questionNumber].incorrectDesc}. Did you know? ${store.questions[store.questionNumber].factoid}</section>`;
   } else {
-    html += `<section class='js-answer-eval correct'>Correct! \n Did you know? \n${store.questions[store.questionNumber].factoid} </section>`;
+    html += `<section class='js-answer-eval correct'><strong>Correct!</strong> Did you know? ${store.questions[store.questionNumber].factoid}</section>`;
   }
 
   html += `<button type ='submit' class='js-continue-button'>Continue</button>`;
   html += generateQuizCount();
   html += `</form>
-             </section>`;
+          </section>`;
 
   store.questionNumber++;
   return html;
@@ -171,7 +190,7 @@ function generateTitleScreen() {
   // Generate our initial screen and restart
   return `
     <section class='js-main-screen'>
-      <h2 class="inner-box">Placeholder text</h2>
+      <h2 class="inner-box">Test your Stardew Valley knowledge with this short quiz!</h2>
       <button type='button' class='js-start-button'>Start!</button>
     </section>`;
 };
@@ -182,8 +201,8 @@ function generateEndSceen() {
     <section class='js-main-screen'>
       <div class='js-results-container'>
         <h2 class='js-results-text'>Your results</h2>
-        <h3 class='js-results-text'>You got ${store.score} right out of ${store.questions.length}</h2>
-        <h3 class='js-results-text'>The percent you got correct was ${Math.floor((store.score / store.questions.length) * 100)}</h2>
+        <h3 class='js-results-text'>You got ${store.score} out of ${store.questions.length} right!</h2>
+        <h3 class='js-results-text'>${Math.floor((store.score / store.questions.length) * 100)}%</h2>
       </div>
         <button class='js-end-button'>Play again!</button>
     </section>`
@@ -202,9 +221,6 @@ function renderQuizScreen() {
     generateString = generateEndSceen();
   }
   else {
-    //1. render the question screen
-    //2. render correct
-    //3. render wrong
     if (store.answer) {
       generateString = generateQuizFeedback();
     } else {
