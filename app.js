@@ -26,7 +26,7 @@ const store = {
       correctAnswer: '1 month',
       incorrectDesc: 'Each season is one month long.',
       factoid: `You can check the calender outside of Pierre's store to keep up with each months events!`
-    },    
+    },
     {
       question: 'Who do you inherit your farm from?',
       answers: [
@@ -61,7 +61,7 @@ const store = {
       ],
       correctAnswer: 'The Community Center',
       incorrectDesc: 'You give items to the Junimos at The Community Center.',
-      factoid: 'Make sure to complete all bundles to fully restore each room!' 
+      factoid: 'Make sure to complete all bundles to fully restore each room!'
     }
   ],
   quizStarted: false,
@@ -94,7 +94,6 @@ function generateQuizQuestion() {
   html = `<section class='js-main-screen'>
             <h2 class='js-question-box'>${store.questions[store.questionNumber].question}</h2>
             <form action='' id='js-answer-form' class='js-answer-box'>`;
-  html += generateQuizCount();
   let i = 1;
   store.questions[store.questionNumber].answers.forEach(quizAnswer => {
     console.log(quizAnswer);
@@ -106,8 +105,9 @@ function generateQuizQuestion() {
   })
 
   html += ` <section class='js-answer-eval'></section>
-            <button type ='submit' class='js-answer-button'>Submit</button>
-          </form>
+            <button type ='submit' class='js-answer-button'>Submit</button>`;
+  html += generateQuizCount();
+  html += `</form>
           </section>`;
 
   return html;
@@ -118,47 +118,48 @@ function generateQuizQuestion() {
 //or disabled?
 
 function generateQuizFeedback() {
-    let html = '';
-    let incorrectFlag = false;
-    let correct = store.questions[store.questionNumber].correctAnswer;
-    html += `<section class='js-main-screen'>
+  let html = '';
+  let incorrectFlag = false;
+  let correct = store.questions[store.questionNumber].correctAnswer;
+  html += `<section class='js-main-screen'>
               <h2 class='js-question-box'>${store.questions[store.questionNumber].question}</h2>
               <form action='' id='js-answer-form' class='js-answer-box'>`
-    html += generateQuizCount();
-    let i = 1;
-    store.questions[store.questionNumber].answers.forEach(quizAnswer => {
-      if (quizAnswer != correct && quizAnswer === store.answer) {
-        incorrectFlag = !incorrectFlag;
-        html += `<div class='input-container incorrect'>`;
-      } else {
-        if (quizAnswer === correct) {
-          html += `<div class='input-container correct'>`;
-          if(correct === store.answer) {
-            store.score++;
-          }
-        } else {
-          html += `<div class='input-container'>`;
-        }
-      }
-      html += `<input disabled ${store.answer === quizAnswer ? `checked` : ``} type="radio" name="answer" id='answer${i} value='${quizAnswer}'>`;
-      html += `<label for='answer${i}'>${quizAnswer}</label>`;
-      html += `</div>`;
-      i++;
-    })
 
-    if (incorrectFlag) {
-      html += `<section class='js-answer-eval incorrect'>
-               Incorrect! \n${store.questions[store.questionNumber].incorrectDesc}.  \nDid you know? \n${store.questions[store.questionNumber].factoid}</section>`;
+  let i = 1;
+  store.questions[store.questionNumber].answers.forEach(quizAnswer => {
+    if (quizAnswer != correct && quizAnswer === store.answer) {
+      incorrectFlag = !incorrectFlag;
+      html += `<div class='input-container incorrect'>`;
     } else {
-      html += `<section class='js-answer-eval correct'>Correct! \n Did you know? \n${store.questions[store.questionNumber].factoid} </section>`;
+      if (quizAnswer === correct) {
+        html += `<div class='input-container correct'>`;
+        if (correct === store.answer) {
+          store.score++;
+        }
+      } else {
+        html += `<div class='input-container'>`;
+      }
     }
+    html += `<input disabled ${store.answer === quizAnswer ? `checked` : ``} type="radio" name="answer" id='answer${i} value='${quizAnswer}'>`;
+    html += `<label for='answer${i}'>${quizAnswer}</label>`;
+    html += `</div>`;
+    i++;
+  })
 
-    html += `<button type ='submit' class='js-continue-button'>Continue</button>
-          </form>
-          </section>`;
+  if (incorrectFlag) {
+    html += `<section class='js-answer-eval incorrect'>
+               Incorrect! \n${store.questions[store.questionNumber].incorrectDesc}.  \nDid you know? \n${store.questions[store.questionNumber].factoid}</section>`;
+  } else {
+    html += `<section class='js-answer-eval correct'>Correct! \n Did you know? \n${store.questions[store.questionNumber].factoid} </section>`;
+  }
 
-    store.questionNumber++;
-    return html;
+  html += `<button type ='submit' class='js-continue-button'>Continue</button>`;
+  html += generateQuizCount();
+  html += `</form>
+             </section>`;
+
+  store.questionNumber++;
+  return html;
 }
 
 function generateQuizCount() {
@@ -204,7 +205,7 @@ function renderQuizScreen() {
     //1. render the question screen
     //2. render correct
     //3. render wrong
-    if(store.answer){
+    if (store.answer) {
       generateString = generateQuizFeedback();
     } else {
       generateString = generateQuizQuestion();
