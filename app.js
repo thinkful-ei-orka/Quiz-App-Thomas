@@ -1,25 +1,3 @@
-/*
-  Check-list for things to do today
-  ------------------------------------
-
-  1. Ensure 320 functionality
-    a. Make sure no elements crossover
-    b. Make sure all elements are still readable
-    c. Make sure all designs do not break
-  2. Design to fit our questions right text
-  3. Redesign results screen
-  4. Recolor our backgrounds and apply opacity where needed
-  5. Refactor codebase to ensure all code is 'clean'
-
-
-  1-ex. Implements images
-  2-ex. Implements stars
-*/
-
-
-/**
- * Example store structure
- */
 const store = {
   questions: [
     {
@@ -109,13 +87,11 @@ const store = {
 
 // These functions return HTML templates
 function generateQuizQuestion() {
-  // Generate a question in the quiz
   html = `<section class='js-main-screen'>
             <h2 class='js-question-box'>${store.questions[store.questionNumber].question}</h2>
             <form action='' id='js-answer-form' class='js-answer-box'>`;
   let i = 1;
   store.questions[store.questionNumber].answers.forEach(quizAnswer => {
-    console.log(quizAnswer);
     html += `<div class='input-container'>
               <input type="radio" name="answer" id='answer${i}' value='${quizAnswer}'>
               <label for='answer${i}'>${quizAnswer}</label>
@@ -123,18 +99,14 @@ function generateQuizQuestion() {
     i++;
   })
 
-  html += ` <section class='js-answer-eval'></section>
-            <button type ='submit' class='js-answer-button'>Submit</button>`;
+  html += `<section class='js-answer-eval'></section>
+           <button type ='submit' class='js-answer-button'>Submit</button>`;
   html += generateQuizCount();
   html += `</form>
           </section>`;
-
   return html;
 };
 
-//use :checked to make radio box checked
-//use invalid to make radio box unselectable?
-//or disabled?
 
 function generateQuizFeedback() {
   let html = '';
@@ -164,7 +136,6 @@ function generateQuizFeedback() {
              </div>`;
     i++;
   })
-
   if (incorrectFlag) {
     html += `<section class='js-answer-eval incorrect'>
                <strong>Incorrect!</strong> ${store.questions[store.questionNumber].incorrectDesc}. Did you know? ${store.questions[store.questionNumber].factoid}</section>`;
@@ -182,12 +153,10 @@ function generateQuizFeedback() {
 }
 
 function generateQuizCount() {
-  // return a html string that is the current question, total questions, and total questions right
   return `<h3>Question ${(store.questionNumber + 1)}/${store.questions.length}. ${store.score} correct.</h3>`;
 };
 
 function generateTitleScreen() {
-  // Generate our initial screen and restart
   return `
     <section class='js-main-screen'>
       <h2 class="inner-box center-text">Test your Stardew Valley knowledge with this short quiz!</h2>
@@ -196,7 +165,6 @@ function generateTitleScreen() {
 };
 
 function generateEndSceen() {
-  // Generate our quiz results
   return `
     <section class='js-main-screen'>
       <div class='js-results-container'>
@@ -234,8 +202,6 @@ function renderQuizScreen() {
 /********** EVENT HANDLER FUNCTIONS **********/
 
 // These functions handle events (submit, click, etc)
-
-
 
 function handleAnswerSubmitted() {
   $('main').on('submit', '#js-answer-form', (event) => {
