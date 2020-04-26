@@ -210,6 +210,11 @@ label {
     line-height: 3rem;
   }
 
+  .js-question-box {
+    padding: 0;
+  }
+
+  
   #js-answer-form {
     padding-bottom: 75px;
   }
@@ -241,11 +246,4 @@ label {
     align-self: flex-end;
     font-size: 2rem;
   }
-
-
-
-}
-
-@media only screen and (min-width: 1024px) {
-
 }
