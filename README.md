@@ -1,4 +1,4 @@
-#Stardew Valley Quiz App
+# Stardew Valley Quiz App
 
 Programmed by **Thomas Davis** and **Victor Jarvis** for Thinkful's Software Engineering Immersion Program.  This program was created using HTML, CSS, Javascript, and jQuery.
 
