@@ -190,7 +190,7 @@ function generateTitleScreen() {
   // Generate our initial screen and restart
   return `
     <section class='js-main-screen'>
-      <h2 class="inner-box">Test your Stardew Valley knowledge with this short quiz!</h2>
+      <h2 class="inner-box center-text">Test your Stardew Valley knowledge with this short quiz!</h2>
       <button type='button' class='js-start-button'>Start!</button>
     </section>`;
 };

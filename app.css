@@ -22,8 +22,9 @@ body {
   background-attachment: fixed;
   background-position: center;
   font-family: 'Comic Neue', cursive;
-  font-size: .8rem;
-  line-height: .95rem;
+  font-size: .9rem;
+  line-height: 1.25rem;
+  padding-bottom: 20px;
 }
 
 /* Flex setup
@@ -35,17 +36,31 @@ h2, main, div, section, form {
   flex-flow: column nowrap;
 }
 
+/* Generic classes for styling */
+
+.center-text {
+  text-align: center;
+}
+
+.correct {
+  background-color: rgb(133, 224, 133);
+}
+
+.incorrect {
+  background-color: rgb(228, 135, 135);
+}
+
 /* Title and box styling */
 
 h1 {
   padding: 10px 0;
-  font-size: 1.25rem;
-  margin: 1rem auto;
+  font-size: 1.4rem;
+  margin: .4rem auto;
   width: 90%;
   text-align: center;
-  background-color: lightgray;
+  background-color: rgba(230, 230, 230, .9);
   border-radius: 2rem;
-  border: black solid 3px;
+  border: rgba(11, 11, 11, .95) solid 3px;
 }
 
 main {
@@ -53,17 +68,17 @@ main {
   margin: 0 auto;
   width: 90%;
   height: fit-content;
-  padding-bottom: 40px;
   border-radius: 2rem;
-  background: lightgray;
-  border: black solid 3px;
+  background-color: rgba(230, 230, 230, .95);
+  border: rgba(11, 11, 11, .95) solid 3px;
 }
 
 /* Inner Main elements styling */
 
 /* Inner container to hold all elements */
 .js-main-screen {
-  width: 90%;
+  padding: 0 15px;
+  width: 100%;
   height: 100%;
 }
 
@@ -77,18 +92,20 @@ main {
 #js-answer-form {
   height: 100%;
   position: relative;
+  padding-bottom: 50px;
 }
 
 /* Answers Correct text */
 
 #js-answer-form > h3 {
   position: absolute;
+  font-size: .9rem;
   left: 0;
-  bottom: -30px;
+  bottom: 15px;
 }
 
 h2 {
-  font-size: 1.1rem;
+  font-size: 1.2rem;
   line-height: 1.3rem;
   margin: 15px auto;
   width: 100%;
@@ -96,7 +113,7 @@ h2 {
 }
 
 h3 {
-  font-size: .9rem;
+  font-size: 1rem;
   text-align: right;
 }
 
@@ -108,18 +125,20 @@ button {
   border-radius: 2rem;
   background-color: darksalmon;
   align-self: flex-end;
+  font-size: 1.2rem;
 }
 
 /* Question box */
 
 .js-question-box {
   height: fit-content;
+  padding: 0 10px;
 }
 
 .js-answer-eval {
   display: inline-block;
   padding: 15px;
-  margin: 20px auto;
+  margin: 10px auto 20px auto;
   width: 100%;
   border-radius: 2rem;
 }
@@ -128,25 +147,26 @@ button {
 .input-container {
   flex-direction: row;
   width: 100%;
-  padding: 3px;
+  padding: 3px 10px;
+  margin: 2px auto;
   border-radius: 10px;
 }
 
 input {
-  margin: 5px;
   margin-right: 15px;
+  align-self: center;
 }
 
 label {
   width: 100%;
-  line-height: 1.25rem;
+  font-size: 1rem;
 }
 
 /* Submit and continue button formatting */
 
 .js-answer-button, .js-continue-button {
   position: absolute;
-  bottom: -30px;
+  bottom: 15px;
   right: 0;
 }
 
@@ -158,12 +178,74 @@ label {
   align-self: center;
 }
 
-/* colors for correct/incorrect */
-
-.correct {
-  background-color: rgb(133, 224, 133);
+.js-end-button {
+  padding: 10px 20px;
 }
 
-.incorrect {
-  background-color: rgb(228, 135, 135);
+@media screen and (min-width: 750px) {
+  main, h1 {
+    width: 670px;
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  
+  body, h3, .js-results-text {
+    line-height: 2rem;
+    font-size: 1.5rem;
+  }
+
+  .js-main-screen {
+    padding: 0 30px;
+  }
+
+  .js-answer-eval {
+    margin: 25px auto;
+    padding: 20px 30px;
+    line-height: 1.75rem;
+  }
+
+  .js-results-text {
+    font-size: 2.5rem;
+    line-height: 3rem;
+  }
+
+  #js-answer-form {
+    padding-bottom: 75px;
+  }
+
+  #js-answer-form > h3 {
+    font-size: 1.25rem;
+  }
+
+  h1 {
+    font-size: 2rem;
+    padding: 20px 0;
+    margin: 20px auto;
+  }
+
+  h2 {
+    font-size: 1.8rem;
+    line-height: 2.25rem;
+  }
+
+  label {
+    font-size: 1.25rem;
+  }
+
+  
+  button {
+    padding: 5px 10px;
+    min-width: 200px;  
+    height: 60px;
+    align-self: flex-end;
+    font-size: 2rem;
+  }
+
+
+
+}
+
+@media only screen and (min-width: 1024px) {
+
 }
